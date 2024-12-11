@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="assets/manifest.json">
+    <link rel="stylesheet" href="main.css">
+    <title>QR Code</title>
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="index.html">Generate QR Code</a>
+        <a href="scanner.html">Scan QR Code</a>
+    </div>
+
+    <div class="container-scanner">
+        <button class="scan-button" onclick="location.href='index.html'"><span>Generate QR Code</span>
+            <image src="assets/ic_qr.png" height="20px" width="20px" />
+        </button>
+        <div class="scanner-wrapper">
+            <div id="qr-scanner"></div>
+            <div id="qr-result"><span id="result-tag">Result</span><div><span id="result"></span><button onclick="copyText()"><img src="assets/ic_copy.png" alt="copy"/></button></div></div>
+        </div>
+        <!-- The actual snackbar -->
+        <div id="snackbar"></div>
+    </div>
+
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"
+        integrity="sha512-r6rDA7W6ZeQhvl8S7yRVQUKVHdexq+GAlNkNNqVC7YyIV+NwqCTJe2hDWCiffTyRNOeGEzRRJ9ifvRm/HCzGYg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // handle the scanned code as you like, for example:
+            if (validURL(decodedText)) {
+                document.getElementById("result").innerHTML = `<a href="${decodedText}" target="_blank">${decodedText}</a>`;
+            }else {
+                document.getElementById("result").innerHTML = decodedText;
+            }
+            document.getElementById("qr-result").style.display = "flex";
+            document.getElementById("html5-qrcode-button-camera-stop").click();
+            //console.log(`Code matched = ${decodedText}`, decodedResult);
+        }
+
+        function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning.
+            // for example:
+            console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-scanner",
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+  /* verbose= */ false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+        function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+function copyText() {
+    var copyText = document.getElementById("result");
+    var r = document.createRange();
+    r.selectNode(copyText);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(r);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+
+    var snackbar = document.getElementById("snackbar");
+    snackbar.innerHTML = "Copied the text: " + copyText.textContent;
+    snackbar.className = "show";
+    setTimeout(function () {
+        snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
+}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,382 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Style the top navigation bar */
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  /* Style the topnav links */
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change color on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Style the content */
+  .content {
+    padding: 10px;
+  }
+  /* background-color: #ddd; */
+
+  .scan-button {
+    background-color: #5e45dc; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+.scan-button span {
+    position: relative;
+    top: -3px;
+    margin-right: 5px;
+}
+
+  /* Style the footer */
+  .footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+  }
+
+  .form-qrcode {
+    margin-top: 20px;
+    padding: 10px;
+    display: flex; /* Enable flexbox */
+    justify-content: space-between; /* Space between the two divs */
+    align-items: flex-start;
+    width: 100%;
+  }
+.qr-entries{
+    left: 0;
+    width: 100%;
+    position: relative;
+}
+.qr-preview {
+    aspect-ratio: 1/1;
+    display: none; /* Enable Flexbox */
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+.qr-preview-wrapper {
+    aspect-ratio: 1/1;
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border: black 1px solid;
+    display: flex; /* Enable Flexbox */
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+.qr-preview-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+@media only screen and (min-width: 1100px) {
+  .qr-preview {
+    width: 25%;
+  }
+  .form-qrcode {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1099px) {
+  .qr-preview {
+    width: 32%;
+  }
+  .form-qrcode {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 720px) and (max-width: 899px) {
+  .qr-preview {
+    width: 40%;
+  }
+  .form-qrcode {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 720px) {
+  .qr-preview {
+    width: 50%;
+    margin-top: 20px;
+  }
+  .form-qrcode {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 499px) {
+  .qr-preview {
+    width: 80%;
+    margin-top: 20px;
+  }
+  .form-qrcode {
+    flex-direction: column;
+  }
+}
+
+  .input-labels {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .div-input-text {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    height: 35px;
+    margin-top: 8px;
+  }
+
+  input[type="color"] {
+    margin-top: 8px;
+    width: 20%;
+  }
+
+  .generate-button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .generate-button span {
+    position: relative;
+    top: -3px;
+    margin-right: 5px;
+}
+
+.download-button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    display: none;
+  }
+
+  .download-button span {
+    position: relative;
+    top: -3px;
+    margin-right: 5px;
+}
+.qr-preview span {
+    margin-top: 10px; /* Add some spacing between the image and text */
+  }
+
+.qr_canva {
+    background-color: white;
+}
+
+#color_wrapper {
+    background-color: rgb(255, 255, 255, 1);
+    display: inline-block;
+    visibility: hidden;
+    margin-top: 10px;
+  }
+  
+  #color_wrapper::before {
+    content: "";
+    position: absolute;
+    border-radius: 3px;
+    outline: black solid 2px;
+    border: white solid 3px;
+    height: 2rem;
+    width: 2rem;
+    pointer-events: none;
+    background-color: inherit;
+    visibility: visible;
+    box-sizing: border-box;
+  }
+  
+  #color_picker {
+    opacity: 0;
+    height: 2rem;
+    width: 2rem;
+    box-sizing: border-box;
+    pointer-events: initial;
+    visibility: visible;
+  }
+  
+  
+  #color_picker_alpha {
+    filter: grayscale(100%);
+    visibility: visible;
+    position: relative;
+    top: -8px;
+    height: 20px;
+  }
+
+  #qr_size_wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  #qr_size {
+    margin-left: 10px;
+  }
+
+  #qr_size_value {
+    padding: 8px 15px;
+    border: black 1px solid;
+  }
+
+/* scanner css */
+#qr-scanner {
+  margin-top: 20px;
+  width: 50%;
+  aspect-ratio: 2/1 !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+}
+
+#qr-scanner div:first-child img{
+  display: none !important;
+}
+
+.container-scanner {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding: 15px;
+}
+
+.scanner-wrapper {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+}
+
+#qr-result {
+  margin-top: 20px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+}
+
+#qr-result div button {
+  border: none;
+  background-color: #00000000;
+  padding: 5px;
+  height: 30px;
+}
+
+#qr-result div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#result-tag {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+    #qr-scanner {
+      width: 85%;
+      aspect-ratio: 1/1 !important;
+    }
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}

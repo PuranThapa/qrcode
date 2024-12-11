@@ -1,0 +1,17 @@
+{
+    "name": "QR Code Generator/Scanner",
+    "short_name": "QR Generator/Scanner",
+    "theme_color": "#ffcbe4",
+    "background_color": "#fa99ca",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "http://localhost/qr_code",
+    "description": "QR Code Generator and Scanner",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "https://img.freepik.com/free-vector/qr-code-mobile-phone_78370-5881.jpg",
+            "sizes": "625x625"
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="assets/manifest.json">
+    <link rel="stylesheet" href="main.css">
+    <title>QR Code</title>
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="index.html">Generate QR Code</a>
+        <a href="scanner.html">Scan QR Code</a>
+    </div>
+
+    <div class="content">
+        <h1>Generate and Scan QR Code</h1>
+        <button class="scan-button" onclick="location.href='scanner.html'"><span>Scan QR Code</span>
+            <image src="assets/ic_qr.png" height="20px" width="20px" />
+        </button>
+        <div class="form-qrcode">
+            <div class="qr-entries">
+                <div class="div-input-text">
+                    <span class="input-labels">Text Or Link:</span>
+                    <input type="text" placeholder="Enter text or link to generate QR Code">
+                </div>
+                <div class="div-input-text">
+                    <span class="input-labels">Background Color:</span>
+                    <div id=color_wrapper>
+                        <input id="color_picker" oninput="set_color(this)" type="color" data-color="white"
+                            value="#ffffff">
+                        <input id="color_picker_alpha" oninput="set_color(this)" type="range" min="0" max="255" step="1"
+                            value="255" />
+                    </div>
+                </div>
+                <div class="div-input-text">
+                    <span class="input-labels">QR Code Color:</span>
+                    <input type="color" value="#000000" id="qr_color">
+                </div>
+                <div class="div-input-text">
+                    <span class="input-labels">QR Code Size (Width in px and qr code size ratio will be 1:1):</span>
+                    <div id="qr_size_wrapper">
+                        <span id="qr_size_value">250</span>
+                        <input id="qr_size" oninput="set_size(this)" type="range" min="250" max="1080" step="10"
+                            value="250" />
+                    </div>
+                </div>
+                <button class="generate-button" onclick="generate_qr()"><span>Generate QR Code</span>
+                    <image src="assets/ic_qr.png" height="20px" width="20px" />
+                </button>
+            </div>
+            <div id="qr-preview" class="qr-preview">
+                <div class="qr-preview-wrapper">
+                    <img id="qr_canva">
+                </div>
+                <button class="download-button" onclick="downloadQR()"><span>Download QR</span>
+                    <image src="assets/ic_download.png" height="20px" width="20px" />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+    <script src="qrcode.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
